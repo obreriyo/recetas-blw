@@ -99,11 +99,15 @@ footer a{color:var(--accent)}
   <div class="group">Ingredientes habituales</div>
   <div class="chips" id="pop"></div>
 
+  <div class="group">Momento del día</div>
+  <div class="chips" id="mom"></div>
+  <div class="group">Tipo de plato</div>
+  <div class="chips" id="tipo"></div>
   <div class="group">Edad del bebé</div>
   <div class="chips" id="edad"></div>
   <div class="group">Sin alérgenos</div>
   <div class="chips" id="sin"></div>
-  <div class="chips" style="margin-top:10px"><button class="chip" id="favbtn" aria-pressed="false">♥ Solo favoritas</button></div>
+  <div class="chips" style="margin-top:10px"><button class="chip" id="rapbtn" aria-pressed="false">⏱ Rápidas (hasta 20 min)</button> <button class="chip" id="favbtn" aria-pressed="false">♥ Solo favoritas</button></div>
 
   <div class="count" id="count" aria-live="polite"></div>
   <div class="grid" id="lista"></div>
@@ -121,18 +125,21 @@ footer a{color:var(--accent)}
 const ALERG = {huevo:'Huevo', gluten:'Gluten', leche:'Leche', pescado:'Pescado', frutos:'Frutos secos', soja:'Soja'};
 const EDADES = [[0,'Todas'],[6,'6 meses'],[8,'8 meses'],[10,'10 meses'],[12,'12+ meses']];
 // Ingredientes que casi todo el mundo tiene: no cuentan para saber si "te falta" algo.
+const MOMENTOS = [['','Todos'],['D','Desayuno o merienda'],['C','Comida o cena'],['T','Tentempié']];
+const TIPOS = [['','Todos'],['verdura','Verduras'],['carne','Carne'],['pescado','Pescado'],['huevo','Huevo'],['legumbre','Legumbres'],['lacteo','Lácteos'],['fruta','Fruta'],['masas','Cereales y masas'],['cremas','Cremas y purés']];
 const STAPLES = new Set(['aceite','agua','perejil','eneldo','comino','canela','levadura']);
 
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const $ = id => document.getElementById(id);
 
+R.forEach(rc => { const c = (CAT[rc.id] || '|').split('|'); rc.mom = c[0]; rc.tipo = c[1]; });
 const freq = {};
 R.forEach(rc => rc.ing.forEach(i => { if (!STAPLES.has(i.k)) freq[i.k] = (freq[i.k] || 0) + 1; }));
 const TODOS = Object.keys(freq).sort((a, b) => a.localeCompare(b, 'es'));
 const POP = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 18);
 
-const state = {sel: new Set(), edad: 0, sin: new Set(), fav: false};
+const state = {sel: new Set(), edad: 0, sin: new Set(), fav: false, mom: '', tipo: '', rap: false};
 let favs = new Set();
 try { favs = new Set(JSON.parse(localStorage.getItem('blw_favs') || '[]')); } catch (e) {}
 const saveFavs = () => { try { localStorage.setItem('blw_favs', JSON.stringify([...favs])); } catch (e) {} };
@@ -146,7 +153,10 @@ function puntua(rc){
 function pasa(rc){
   return (!state.edad || rc.edad <= state.edad) &&
     ![...state.sin].some(a => rc.alerg.includes(a)) &&
-    (!state.fav || favs.has(rc.id));
+    (!state.fav || favs.has(rc.id)) &&
+    (!state.mom || rc.mom.includes(state.mom)) &&
+    (!state.tipo || rc.tipo === state.tipo) &&
+    (!state.rap || rc.min <= 20);
 }
 
 function lista(){
@@ -175,6 +185,11 @@ function pintarChips(){
     `<button class="chip" data-edad="${v}" aria-pressed="${state.edad === v}">${t}</button>`).join('');
   $('sin').innerHTML = Object.entries(ALERG).map(([k, t]) =>
     `<button class="chip" data-sin="${k}" aria-pressed="${state.sin.has(k)}">Sin ${t.toLowerCase()}</button>`).join('');
+  $('mom').innerHTML = MOMENTOS.map(([v, t]) =>
+    `<button class="chip" data-mom="${v}" aria-pressed="${state.mom === v}">${t}</button>`).join('');
+  $('tipo').innerHTML = TIPOS.map(([v, t]) =>
+    `<button class="chip" data-tipo="${v}" aria-pressed="${state.tipo === v}">${t}</button>`).join('');
+  $('rapbtn').setAttribute('aria-pressed', state.rap);
   $('favbtn').setAttribute('aria-pressed', state.fav);
 }
 
@@ -246,13 +261,16 @@ function abrir(id){
 }
 
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-add],[data-del],[data-edad],[data-sin],[data-id],#favbtn,#limpiar');
+  const t = e.target.closest('[data-add],[data-del],[data-edad],[data-sin],[data-id],[data-mom],[data-tipo],#rapbtn,#favbtn,#limpiar');
   if (!t) return;
   if (t.dataset.add) { state.sel.add(t.dataset.add); $('q').value = ''; }
   else if (t.dataset.del) state.sel.delete(t.dataset.del);
   else if (t.id === 'limpiar') state.sel.clear();
   else if (t.dataset.edad !== undefined) state.edad = +t.dataset.edad;
   else if (t.dataset.sin) { state.sin.has(t.dataset.sin) ? state.sin.delete(t.dataset.sin) : state.sin.add(t.dataset.sin); }
+  else if (t.dataset.mom !== undefined) state.mom = t.dataset.mom;
+  else if (t.dataset.tipo !== undefined) state.tipo = t.dataset.tipo;
+  else if (t.id === 'rapbtn') state.rap = !state.rap;
   else if (t.id === 'favbtn') state.fav = !state.fav;
   else if (t.dataset.id) { abrir(t.dataset.id); return; }
   pintarTodo();

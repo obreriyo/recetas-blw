@@ -517,3 +517,28 @@ r('pure-rustico', 'Puré rústico de zanahoria y patata', '🥕', 6, 25, '', 0,
   ['zanahoria|2 zanahorias', 'patata|1 patata', 'aceite|1 cucharadita de aceite de oliva', 'agua|Agua (sin sal)'],
   ['Cuece las verduras en poca agua hasta que estén muy blandas.', 'Aplasta con un tenedor dejando algunos trozos.', 'Añade el aceite.'],
   'Cuchara precargada o bolitas aplastadas con la mano.');
+
+// Categorías: 'momentos|tipo'. Momentos: D = desayuno o merienda, C = comida o cena, T = tentempié.
+window.CAT = {
+  'aguacate':'T|verdura','boniato':'CT|verdura','brocoli':'C|verdura','tortitas-platano':'DT|masas','tortilla':'CD|huevo',
+  'zanahoria':'C|verdura','albondigas-pollo':'C|carne','hamburguesa-lentejas':'C|legumbre','pera':'TD|fruta','calabacin':'C|verdura',
+  'ternera':'C|carne','crema-calabaza':'C|cremas','yogur-almendra':'DT|lacteo','pasta-tomate':'C|masas','croquetas-merluza':'C|pescado',
+  'muffins-platano':'DT|masas','hummus':'T|cremas','salmon':'C|pescado','arroz-huevo':'C|masas','tortitas-yogur':'DT|masas',
+  'coliflor-vapor':'C|verdura','judias-verdes':'C|verdura','pimiento-asado':'C|verdura','berenjena-asada':'C|verdura','tortilla-patata':'C|huevo',
+  'patatas-gajos':'C|verdura','calabaza-asada':'C|verdura','champinones':'C|verdura','tortitas-calabacin':'CT|masas','bunuelos-coliflor':'CT|masas',
+  'tortitas-zanahoria':'CT|masas','tostada-guisantes':'DT|masas','tostada-aguacate-huevo':'DC|huevo','crema-puerro':'C|cremas','rollitos-queso':'CT|huevo',
+  'manzana-cocida':'TD|fruta','manzana-canela':'T|fruta','melocoton':'T|fruta','mango':'T|fruta','melon':'T|fruta',
+  'sandia':'T|fruta','fresas':'T|fruta','yogur-arandanos':'DT|lacteo','platano-almendra':'TD|fruta','compota-manzana-pera':'TD|fruta',
+  'bizcocho-manzana':'DT|masas','helado-platano-fresa':'T|fruta','tostadas-francesas':'D|masas','porridge-platano':'D|masas','porridge-manzana':'D|masas',
+  'cuscus-verduras':'C|masas','quinoa-verduras':'C|masas','arroz-pollo':'C|masas','bolitas-arroz-queso':'CT|masas','tortitas-garbanzo':'CT|legumbre',
+  'tortitas-calabaza':'CT|masas','pizza-coliflor':'C|masas','minipizzas-pan':'CT|masas','pasta-crema-calabacin':'C|masas','macarrones-pavo':'C|masas',
+  'lentejas-arroz':'C|legumbre','albondigas-garbanzos':'C|legumbre','falafel':'CT|legumbre','alubias-tomate':'C|legumbre','hummus-zanahoria':'T|cremas',
+  'tofu':'C|legumbre','tortitas-lentejas':'CT|legumbre','lentejas-rojas-calabaza':'C|legumbre','pollo-desmenuzado':'C|carne','pavo-guisado':'C|carne',
+  'cerdo-desmenuzado':'C|carne','cordero-patata':'C|carne','hamburguesa-ternera':'C|carne','bolitas-pavo-manzana':'C|carne','pollo-tomate':'C|carne',
+  'lasana-calabacin':'C|carne','cocido-bebe':'C|legumbre','merluza-vapor':'C|pescado','lenguado-limon':'C|pescado','bacalao-tomate':'C|pescado',
+  'hamburguesa-salmon':'C|pescado','sardinas-horno':'C|pescado','pescadilla-avena':'C|pescado','arroz-merluza':'C|pescado','tortilla-salmon':'C|pescado',
+  'revuelto-tomate':'DC|huevo','huevo-duro-aguacate':'DT|huevo','revuelto-calabacin':'CD|huevo','muffins-salados':'CT|masas','queso-fresco-fruta':'DT|lacteo',
+  'overnight-avena':'D|masas','tortitas-boniato':'CT|masas','croquetas-pollo':'C|carne','naranja':'T|fruta','kiwi':'T|fruta',
+  'ensalada-zanahoria-manzana':'C|verdura','ensalada-tomate-aguacate':'CT|verdura','pan-tomate':'DT|masas','judias-patata-huevo':'C|verdura','boniato-relleno':'C|legumbre',
+  'pure-rustico':'C|cremas'
+};

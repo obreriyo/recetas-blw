@@ -1,4 +1,4 @@
-const CACHE = 'blw-v3';
+const CACHE = 'blw-v4';
 const FILES = [
   './', './index.html', './manifest.webmanifest', './icon.svg',
   './recetas.js'

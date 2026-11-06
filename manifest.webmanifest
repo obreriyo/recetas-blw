@@ -1,0 +1,14 @@
+{
+  "name": "Recetas BLW · Mi Bebé Guía",
+  "short_name": "Recetas BLW",
+  "description": "Recetas BLW para bebés desde los 6 meses, con alérgenos y cómo cortar cada alimento.",
+  "lang": "es",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff8f0",
+  "theme_color": "#e8833a",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

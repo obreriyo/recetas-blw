@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Qué cocinamos hoy? · Recetas para bebés · Mi Bebé Guía</title>
+<meta name="description" content="Escribe los ingredientes que tienes en casa y descubre qué recetas puede comer tu bebé desde los 6 meses, con alérgenos y cómo ofrecerlas.">
+<meta name="theme-color" content="#e8833a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#fff8f0; --card:#ffffff; --ink:#2b2118; --muted:#6f6154; --accent:#d9702a; --accent-ink:#ffffff;
+  --soft:#fde8d3; --line:#f0dcc6; --ok:#2f7a47; --ok-bg:#e3f3e8; --warn:#b3261e; --warn-bg:#fdecea;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#1b1511; --card:#262019; --ink:#f4ebe1; --muted:#b9a995; --accent:#f0954f; --accent-ink:#1b1511;
+    --soft:#3a2d20; --line:#3b3026; --ok:#7fd196; --ok-bg:#1f3527; --warn:#ff8a80; --warn-bg:#3a1f1d; }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:16px}
+header h1{font-size:1.6rem;line-height:1.2;margin:8px 0 4px}
+header p{margin:0 0 12px;color:var(--muted)}
+label.big{display:block;font-weight:700;margin:14px 0 6px}
+.search{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit}
+.search:focus{border-color:var(--accent);outline:none}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.sug{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.group{margin:14px 0 4px;font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:999px;font:inherit;font-size:.9rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.chip.sel{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.chip.add{border-style:dashed}
+.chip.clear{border-color:var(--warn);color:var(--warn)}
+details.seg{margin:16px 0;background:var(--warn-bg);border:1px solid var(--warn);border-radius:12px;padding:10px 14px}
+details.seg summary{cursor:pointer;font-weight:600;color:var(--warn)}
+details.seg ul{margin:10px 0 4px;padding-left:20px}
+details.seg li{margin:4px 0}
+.count{margin:16px 0 8px;color:var(--muted);font-size:.9rem}
+.grid{display:grid;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;font:inherit;color:inherit;cursor:pointer}
+.card:hover{border-color:var(--accent)}
+.emoji{font-size:2rem;line-height:1;background:var(--soft);border-radius:12px;padding:10px}
+.card h2{font-size:1.05rem;margin:0 0 4px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;font-size:.8rem;color:var(--muted)}
+.tag{background:var(--soft);padding:2px 8px;border-radius:999px;color:var(--ink)}
+.tag.alg{background:var(--warn-bg);color:var(--warn)}
+.tag.fe{color:var(--ok);font-weight:600}
+.tag.todo{background:var(--ok-bg);color:var(--ok);font-weight:700}
+.tag.falta{background:var(--soft);color:var(--ink)}
+.empty{text-align:center;color:var(--muted);padding:32px 8px}
+dialog{border:none;border-radius:20px;padding:0;max-width:min(680px,94vw);width:100%;background:var(--card);color:var(--ink);max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.dlg{padding:18px;overflow:auto;max-height:92vh}
+.dlg h2{margin:4px 0 8px;font-size:1.4rem}
+.dlg h3{margin:18px 0 6px;font-size:1rem}
+.dlg ul,.dlg ol{margin:0;padding-left:22px}
+.dlg li{margin:4px 0}
+.dlg li.si{color:var(--ok)}
+.dlg li.no{color:var(--muted)}
+.box{background:var(--soft);border-radius:12px;padding:10px 12px;margin-top:14px;font-size:.95rem}
+.box.warn{background:var(--warn-bg);border:1px solid var(--warn)}
+.row{display:flex;gap:8px;margin-top:16px}
+.btn{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+footer{margin:28px 0 12px;color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>¿Qué cocinamos hoy? 🍳</h1>
+    <p>Escribe lo que tienes en casa y te mostramos qué puede comer tu bebé. Sin sal, sin azúcar y sin miel.</p>
+  </header>
+
+  <details class="seg">
+    <summary>Antes de empezar: seguridad</summary>
+    <ul>
+      <li>El bebé come <b>siempre sentado, erguido y acompañado</b>. Nunca tumbado ni en el coche.</li>
+      <li>Las <b>arcadas</b> son normales (ruido, tos, cara roja). El <b>atragantamiento</b> es silencioso: no tose ni respira. Aprende primeros auxilios pediátricos.</li>
+      <li><b>Sin sal, sin azúcar y sin miel</b> (la miel, hasta los 12 meses por riesgo de botulismo).</li>
+      <li><b>Frutos secos enteros, uvas o tomates cherry enteros, palomitas, zanahoria cruda</b>: no. Los frutos secos solo molidos o en crema muy fina.</li>
+      <li>Evita pez espada, atún rojo, tiburón y lucio hasta los 10 años por el mercurio.</li>
+      <li>Cocina los alimentos duros hasta que se aplasten entre dos dedos.</li>
+      <li>Alérgenos (huevo, pescado, leche, gluten, frutos secos, soja): introdúcelos de uno en uno, en pequeñas cantidades y según te indique tu pediatra.</li>
+    </ul>
+  </details>
+
+  <label class="big" for="q">¿Qué tienes en casa?</label>
+  <input id="q" class="search" type="search" placeholder="Escribe un ingrediente: huevo, plátano, pollo…" autocomplete="off" enterkeyhint="done">
+  <ul class="sug" id="sug"></ul>
+
+  <div class="group" id="selt" hidden>Tus ingredientes</div>
+  <div class="chips" id="sel"></div>
+  <div class="group">Ingredientes habituales</div>
+  <div class="chips" id="pop"></div>
+
+  <div class="group">Edad del bebé</div>
+  <div class="chips" id="edad"></div>
+  <div class="group">Sin alérgenos</div>
+  <div class="chips" id="sin"></div>
+  <div class="chips" style="margin-top:10px"><button class="chip" id="favbtn" aria-pressed="false">♥ Solo favoritas</button></div>
+
+  <div class="count" id="count" aria-live="polite"></div>
+  <div class="grid" id="lista"></div>
+
+  <footer>
+    <p>Información orientativa. No sustituye el consejo de tu pediatra. Consulta también las pautas de la Asociación Española de Pediatría (AEP) y de la AESAN.</p>
+    <p>Mi Bebé Guía · <a href="https://mibebeguia.es">mibebeguia.es</a></p>
+  </footer>
+</div>
+
+<dialog id="dlg"><div class="dlg" id="dlgc"></div></dialog>
+
+<script src="recetas.js"></script>
+<script>
+const ALERG = {huevo:'Huevo', gluten:'Gluten', leche:'Leche', pescado:'Pescado', frutos:'Frutos secos', soja:'Soja'};
+const EDADES = [[0,'Todas'],[6,'6 meses'],[8,'8 meses'],[10,'10 meses'],[12,'12+ meses']];
+// Ingredientes que casi todo el mundo tiene: no cuentan para saber si "te falta" algo.
+const STAPLES = new Set(['aceite','agua','perejil','eneldo','comino','canela','levadura']);
+
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const $ = id => document.getElementById(id);
+
+const freq = {};
+R.forEach(rc => rc.ing.forEach(i => { if (!STAPLES.has(i.k)) freq[i.k] = (freq[i.k] || 0) + 1; }));
+const TODOS = Object.keys(freq).sort((a, b) => a.localeCompare(b, 'es'));
+const POP = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 18);
+
+const state = {sel: new Set(), edad: 0, sin: new Set(), fav: false};
+let favs = new Set();
+try { favs = new Set(JSON.parse(localStorage.getItem('blw_favs') || '[]')); } catch (e) {}
+const saveFavs = () => { try { localStorage.setItem('blw_favs', JSON.stringify([...favs])); } catch (e) {} };
+
+function puntua(rc){
+  const clave = rc.ing.filter(i => !STAPLES.has(i.k));
+  const falta = clave.filter(i => !state.sel.has(i.k)).map(i => i.k);
+  return {n: clave.length - falta.length, falta: falta, todo: falta.length === 0};
+}
+
+function pasa(rc){
+  return (!state.edad || rc.edad <= state.edad) &&
+    ![...state.sin].some(a => rc.alerg.includes(a)) &&
+    (!state.fav || favs.has(rc.id));
+}
+
+function lista(){
+  let out = R.filter(pasa).map(rc => ({rc: rc, m: puntua(rc)}));
+  if (state.sel.size) {
+    out = out.filter(o => o.m.n > 0);
+    out.sort((a, b) => (b.m.todo - a.m.todo) || (a.m.falta.length - b.m.falta.length) || (b.m.n - a.m.n));
+  }
+  return out;
+}
+
+function pintarSel(){
+  $('selt').hidden = !state.sel.size;
+  $('sel').innerHTML = [...state.sel].map(k =>
+    `<button class="chip sel" data-del="${k}" aria-label="Quitar ${k}">${cap(k)} ✕</button>`).join('') +
+    (state.sel.size ? '<button class="chip clear" id="limpiar">Quitar todo</button>' : '');
+}
+
+function pintarPop(){
+  $('pop').innerHTML = POP.filter(k => !state.sel.has(k)).map(k =>
+    `<button class="chip add" data-add="${k}">+ ${cap(k)}</button>`).join('');
+}
+
+function pintarChips(){
+  $('edad').innerHTML = EDADES.map(([v, t]) =>
+    `<button class="chip" data-edad="${v}" aria-pressed="${state.edad === v}">${t}</button>`).join('');
+  $('sin').innerHTML = Object.entries(ALERG).map(([k, t]) =>
+    `<button class="chip" data-sin="${k}" aria-pressed="${state.sin.has(k)}">Sin ${t.toLowerCase()}</button>`).join('');
+  $('favbtn').setAttribute('aria-pressed', state.fav);
+}
+
+function pintarSug(){
+  const q = norm($('q').value.trim());
+  if (!q) { $('sug').innerHTML = ''; return; }
+  const res = TODOS.filter(k => !state.sel.has(k) && norm(k).includes(q)).slice(0, 8);
+  $('sug').innerHTML = res.length
+    ? res.map(k => `<li><button class="chip add" data-add="${k}">+ ${cap(k)}</button></li>`).join('')
+    : '<li class="empty" style="padding:6px">No tengo ese ingrediente todavía.</li>';
+}
+
+function pintarLista(){
+  const l = lista();
+  const hay = state.sel.size > 0;
+  $('count').textContent = hay
+    ? (l.length ? l.length + (l.length === 1 ? ' receta con tus ingredientes' : ' recetas con tus ingredientes') : '')
+    : R.length === l.length ? R.length + ' recetas' : l.length + ' de ' + R.length + ' recetas';
+  $('lista').innerHTML = l.length ? l.map(({rc, m}) => `
+    <button class="card" data-id="${rc.id}">
+      <span class="emoji" aria-hidden="true">${rc.emoji}</span>
+      <span>
+        <h2>${rc.nombre}${favs.has(rc.id) ? ' ♥' : ''}</h2>
+        <span class="meta">
+          ${hay ? (m.todo ? '<span class="tag todo">✓ Tienes todo</span>' :
+            '<span class="tag falta">Te falta: ' + m.falta.slice(0, 3).join(', ') + (m.falta.length > 3 ? ' y ' + (m.falta.length - 3) + ' más' : '') + '</span>') : ''}
+          <span class="tag">Desde ${rc.edad} meses</span>
+          <span class="tag">${rc.min} min</span>
+          ${rc.fe ? '<span class="tag fe">Rica en hierro</span>' : ''}
+          ${rc.alerg.map(a => `<span class="tag alg">${ALERG[a]}</span>`).join('')}
+        </span>
+      </span>
+    </button>`).join('')
+    : '<div class="empty">' + (hay ? 'Ninguna receta usa esos ingredientes con los filtros elegidos. Prueba a añadir otro ingrediente o quitar algún filtro.' : 'No hay recetas con esos filtros. Prueba a quitar alguno.') + '</div>';
+}
+
+function pintarTodo(){ pintarSel(); pintarPop(); pintarChips(); pintarSug(); pintarLista(); }
+
+function abrir(id){
+  const rc = R.find(x => x.id === id); if (!rc) return;
+  const hay = state.sel.size > 0;
+  $('dlgc').innerHTML = `
+    <div class="meta" style="margin-bottom:4px">
+      <span class="tag">Desde ${rc.edad} meses</span><span class="tag">${rc.min} min</span>
+      ${rc.fe ? '<span class="tag fe">Rica en hierro</span>' : ''}
+      ${rc.alerg.map(a => `<span class="tag alg">Contiene: ${ALERG[a].toLowerCase()}</span>`).join('')}
+    </div>
+    <h2>${rc.emoji} ${rc.nombre}</h2>
+    <h3>Ingredientes</h3>
+    <ul>${rc.ing.map(i => {
+      const marca = hay && !STAPLES.has(i.k) ? (state.sel.has(i.k) ? ' class="si"' : ' class="no"') : '';
+      const pref = hay && !STAPLES.has(i.k) ? (state.sel.has(i.k) ? '✓ ' : '✗ ') : '';
+      return `<li${marca}>${pref}${i.t}</li>`;
+    }).join('')}</ul>
+    <h3>Preparación</h3><ol>${rc.pasos.map(p => `<li>${p}</li>`).join('')}</ol>
+    <div class="box"><b>Cómo ofrecerlo:</b> ${rc.corte}</div>
+    ${rc.nota ? `<div class="box">${rc.nota}</div>` : ''}
+    <div class="box warn">Sin sal, sin azúcar y sin miel. Bebé sentado, erguido y acompañado en todo momento.</div>
+    <div class="row">
+      <button class="btn" id="favdlg">${favs.has(rc.id) ? '♥ Quitar de favoritas' : '♡ Guardar en favoritas'}</button>
+      <button class="btn primary" id="cerrar">Cerrar</button>
+    </div>`;
+  $('favdlg').onclick = () => {
+    favs.has(rc.id) ? favs.delete(rc.id) : favs.add(rc.id);
+    saveFavs(); abrir(rc.id); pintarLista();
+  };
+  $('cerrar').onclick = () => $('dlg').close();
+  if (!$('dlg').open) $('dlg').showModal();
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-add],[data-del],[data-edad],[data-sin],[data-id],#favbtn,#limpiar');
+  if (!t) return;
+  if (t.dataset.add) { state.sel.add(t.dataset.add); $('q').value = ''; }
+  else if (t.dataset.del) state.sel.delete(t.dataset.del);
+  else if (t.id === 'limpiar') state.sel.clear();
+  else if (t.dataset.edad !== undefined) state.edad = +t.dataset.edad;
+  else if (t.dataset.sin) { state.sin.has(t.dataset.sin) ? state.sin.delete(t.dataset.sin) : state.sin.add(t.dataset.sin); }
+  else if (t.id === 'favbtn') state.fav = !state.fav;
+  else if (t.dataset.id) { abrir(t.dataset.id); return; }
+  pintarTodo();
+});
+
+$('q').addEventListener('input', pintarSug);
+$('q').addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const q = norm($('q').value.trim()); if (!q) return;
+  const k = TODOS.find(x => !state.sel.has(x) && norm(x).includes(q));
+  if (k) { state.sel.add(k); $('q').value = ''; pintarTodo(); }
+});
+$('dlg').addEventListener('click', e => { if (e.target === $('dlg')) $('dlg').close(); });
+
+pintarTodo();
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>

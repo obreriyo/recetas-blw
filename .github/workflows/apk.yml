@@ -33,6 +33,17 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Poner el icono
+        run: |
+          RES=android/app/src/main/res
+          for d in mdpi:48:108 hdpi:72:162 xhdpi:96:216 xxhdpi:144:324 xxxhdpi:192:432; do
+            IFS=: read n s f <<< "$d"
+            convert icon-1024.png -resize ${s}x${s} $RES/mipmap-$n/ic_launcher.png
+            convert icon-1024.png -resize ${s}x${s} $RES/mipmap-$n/ic_launcher_round.png
+            convert icon-fg-1024.png -resize ${f}x${f} $RES/mipmap-$n/ic_launcher_foreground.png
+          done
+          printf '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="ic_launcher_background">#E8833A</color>\n</resources>\n' > $RES/values/ic_launcher_background.xml
+
       - name: Compilar APK
         run: |
           cd android
@@ -40,7 +51,9 @@ jobs:
           ./gradlew assembleDebug
 
       - name: Guardar APK
-        uses: actions/upload-artifact@v4
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk recetas-blw.apk
+
+      - uses: actions/upload-artifact@v4
         with:
           name: recetas-blw-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: recetas-blw.apk

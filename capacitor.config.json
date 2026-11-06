@@ -1,0 +1,8 @@
+{
+  "appId": "es.mibebeguia.recetasblw",
+  "appName": "Recetas BLW",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  }
+}

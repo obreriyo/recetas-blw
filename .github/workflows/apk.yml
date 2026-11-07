@@ -33,6 +33,11 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Instalar ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
       - name: Poner el icono
         run: |
           RES=android/app/src/main/res

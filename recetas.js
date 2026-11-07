@@ -542,3 +542,181 @@ window.CAT = {
   'ensalada-zanahoria-manzana':'C|verdura','ensalada-tomate-aguacate':'CT|verdura','pan-tomate':'DT|masas','judias-patata-huevo':'C|verdura','boniato-relleno':'C|legumbre',
   'pure-rustico':'C|cremas'
 };
+
+// ============ RECETAS NUEVAS: introducir alérgenos, hierro, 12-24 meses y familiares ============
+r('yogur-cacahuete', 'Yogur con crema de cacahuete muy fina', '🥜', 6, 5, 'frutos,leche', 0,
+  ['yogur|1 yogur natural sin azúcar', 'cacahuete|½ cucharadita de crema de cacahuete 100 % cacahuete, sin sal ni azúcar'],
+  ['Diluye la crema de cacahuete con una cucharada de yogur hasta que quede muy líquida.', 'Mézclala con el resto del yogur.', 'Sirve con cuchara precargada.'],
+  'Cuchara precargada. Nunca crema espesa ni cacahuetes enteros.',
+  'Para introducir el cacahuete: poca cantidad, por la mañana y sin otros alimentos nuevos ese día. Si tu bebé tiene eccema grave o alergia al huevo, habla antes con tu pediatra.');
+r('semola-pera', 'Sémola de trigo con pera', '🍐', 6, 10, 'gluten', 0,
+  ['sémola|3 cucharadas de sémola de trigo fina', 'pera|1 pera madura', 'agua|Agua o leche materna o de fórmula'],
+  ['Cuece la pera pelada y tritúrala.', 'Cuece la sémola en agua unos 5 minutos, removiendo, hasta que espese.', 'Mezcla con la pera.'],
+  'Cuchara precargada o espeso para mojar bastones de pera.',
+  'Una forma sencilla de introducir el gluten en poca cantidad.');
+r('tortilla-espinacas', 'Tortilla de espinacas', '🥬', 12, 15, 'huevo', 0,
+  ['espinacas|Un puñado de espinacas frescas', 'huevo|2 huevos', 'aceite|Unas gotas de aceite de oliva'],
+  ['Escalda las espinacas 1 minuto, escúrrelas y pícalas.', 'Mézclalas con los huevos batidos.', 'Cuaja en una sartén antiadherente por ambos lados.'],
+  'Tiras anchas o triángulos.',
+  'Las espinacas, las acelgas y la borraja tienen muchos nitratos: la AESAN recomienda no darlas antes de los 12 meses y no abusar después.');
+r('crema-espinacas-patata', 'Crema de espinacas y patata', '🥣', 12, 25, '', 0,
+  ['espinacas|Un puñado grande de espinacas', 'patata|2 patatas', 'cebolla|¼ de cebolla', 'aceite|1 cucharadita de aceite de oliva', 'agua|Agua'],
+  ['Cuece la patata y la cebolla en poca agua 15 minutos.', 'Añade las espinacas los últimos 3 minutos.', 'Tritura con poca agua para que quede espesa.'],
+  'Textura espesa, en cuchara precargada o para mojar.',
+  'Espinacas solo a partir de los 12 meses y en pequeña cantidad (AESAN).');
+r('acelgas-patata', 'Acelgas con patata aplastada', '🥬', 12, 25, '', 0,
+  ['acelgas|Un manojo de acelgas', 'patata|2 patatas', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Cuece las patatas en trozos 15 minutos.', 'Añade las acelgas picadas los últimos 5 minutos.', 'Escurre y aplasta todo con un tenedor con el aceite.'],
+  'Aplastado, en cuchara o en bolitas.',
+  'Acelgas solo a partir de los 12 meses y sin abusar (AESAN).');
+r('macarrones-ternera', 'Macarrones con carne y tomate', '🍝', 12, 30, 'gluten', 1,
+  ['pasta|80 g de macarrones', 'ternera|150 g de ternera picada', 'tomate|2 tomates maduros pelados', 'cebolla|¼ de cebolla', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Cuece la pasta sin sal hasta que esté blanda.', 'Sofríe la cebolla, añade la carne y el tomate triturado y cocina 15 minutos.', 'Mezcla con la pasta.'],
+  'Pasta grande con salsa espesa.', 'Buena fuente de hierro.');
+r('espaguetis-albondigas', 'Espaguetis con albóndigas en tomate', '🍝', 18, 40, 'gluten,huevo', 1,
+  ['pasta|80 g de espaguetis', 'ternera|150 g de ternera picada', 'huevo|1 huevo', 'avena|2 cucharadas de avena molida', 'tomate|2 tomates triturados'],
+  ['Mezcla la carne, el huevo y la avena y forma albóndigas pequeñas.', 'Cocínalas 10 minutos en el tomate triturado.', 'Cuece los espaguetis sin sal, córtalos y sirve juntos.'],
+  'Espaguetis cortados y albóndigas partidas por la mitad.', '');
+r('paella-bebe', 'Paella suave de pollo y verduras', '🥘', 12, 45, '', 0,
+  ['arroz|½ taza de arroz', 'pollo|1 pechuga de pollo en dados pequeños', 'judías verdes|Un puñado de judías verdes', 'pimiento|½ pimiento rojo', 'tomate|1 tomate', 'aceite|1 cucharadita de aceite de oliva', 'agua|Agua sin sal'],
+  ['Sofríe el pollo con el pimiento y el tomate.', 'Añade el arroz y el agua y cuece 18 minutos con las judías muy picadas.', 'Deja reposar.'],
+  'Cuchara o bolitas pegajosas.', 'Limita el arroz a pocas veces por semana (AESAN).');
+r('lasana-pollo-verduras', 'Lasaña de pollo y verduras', '🧀', 18, 60, 'gluten,leche', 0,
+  ['pasta|6 láminas de lasaña', 'pollo|200 g de pollo picado', 'calabacín|1 calabacín', 'tomate|2 tomates triturados', 'queso mozzarella|Queso mozzarella pasteurizado'],
+  ['Sofríe el pollo con el calabacín picado y el tomate.', 'Alterna capas de pasta y relleno.', 'Cubre con queso y hornea 25 minutos a 180 °C.'],
+  'Cuadrados pequeños y blandos.', '');
+r('pizza-casera', 'Pizza casera con verduras', '🍕', 18, 60, 'gluten,leche', 0,
+  ['harina|200 g de harina', 'levadura|½ cucharadita de levadura de panadería', 'tomate|3 cucharadas de tomate casero', 'queso mozzarella|Queso mozzarella pasteurizado', 'champiñón|Unos champiñones laminados', 'aceite|1 cucharada de aceite de oliva', 'agua|Agua tibia'],
+  ['Mezcla la harina, la levadura, el aceite y el agua, y amasa 10 minutos.', 'Deja reposar 30 minutos, extiende y cubre con tomate, queso y champiñones.', 'Hornea 12 minutos a 220 °C.'],
+  'Triángulos pequeños.', 'Masa sin sal.');
+r('empanadillas-verduras', 'Empanadillas de verduras al horno', '🥟', 18, 50, 'gluten,leche,huevo', 0,
+  ['harina|150 g de harina', 'calabacín|½ calabacín', 'zanahoria|1 zanahoria', 'queso fresco|2 cucharadas de queso fresco', 'huevo|1 huevo', 'aceite|2 cucharadas de aceite de oliva', 'agua|Agua'],
+  ['Mezcla harina, aceite y agua y estira la masa.', 'Cuece las verduras picadas y mézclalas con el queso.', 'Rellena, cierra y pinta con huevo.', 'Hornea 20 minutos a 190 °C.'],
+  'Mitades pequeñas y blandas.', '');
+r('sandwich-pavo-queso', 'Sándwich de pavo y queso fresco', '🥪', 12, 10, 'gluten,leche', 0,
+  ['pan|2 rebanadas de pan sin sal', 'pavo|2 lonchas de pechuga de pavo cocida en casa', 'queso fresco|1 cucharada de queso fresco'],
+  ['Unta el queso en el pan.', 'Añade el pavo en tiras finas.', 'Cierra y corta en bastones.'],
+  'Bastones blandos, sin corteza dura.', 'Evita los fiambres comprados: llevan mucha sal.');
+r('crepes-platano', 'Crepes de plátano', '🥞', 12, 20, 'gluten,huevo,leche', 0,
+  ['harina|4 cucharadas de harina', 'huevo|1 huevo', 'leche|100 ml de leche entera', 'plátano|1 plátano maduro', 'aceite|Unas gotas de aceite'],
+  ['Bate harina, huevo y leche.', 'Cocina crepes finas en sartén antiadherente.', 'Rellena con el plátano chafado y enrolla.'],
+  'Rollitos cortados en trozos.', 'La leche de vaca como bebida, a partir de los 12 meses.');
+r('arroz-con-leche', 'Arroz con leche sin azúcar', '🍚', 12, 35, 'leche', 0,
+  ['arroz|½ taza de arroz', 'leche|500 ml de leche entera', 'canela|Un trozo de canela', 'limón|Piel de ½ limón'],
+  ['Cuece el arroz en poca agua 10 minutos.', 'Añade la leche, la canela y el limón y cuece 20 minutos removiendo.', 'Retira la canela y el limón.'],
+  'Cuchara precargada.', 'Sin azúcar. Limita el arroz (AESAN).');
+r('gachas-avena-leche', 'Gachas de avena con leche y manzana', '🥣', 12, 10, 'gluten,leche', 0,
+  ['avena|4 cucharadas de copos de avena', 'leche|200 ml de leche entera', 'manzana|½ manzana rallada', 'canela|Una pizca de canela'],
+  ['Cuece la avena con la leche 5 minutos.', 'Añade la manzana rallada y la canela.'],
+  'Cuchara precargada.', '');
+r('batido-platano-leche', 'Batido de plátano y leche', '🥛', 12, 5, 'leche', 0,
+  ['leche|150 ml de leche entera', 'plátano|1 plátano maduro'],
+  ['Tritura el plátano con la leche.', 'Sírvelo en vaso o biberón de aprendizaje.'],
+  'En vaso abierto o con pajita.', 'Sin azúcar.');
+r('galletas-yogur-avena', 'Galletas de yogur y avena', '🍪', 12, 25, 'gluten,leche', 0,
+  ['avena|100 g de copos de avena', 'yogur|1 yogur natural', 'plátano|1 plátano maduro'],
+  ['Chafa el plátano y mézclalo con el yogur y la avena.', 'Forma galletas planas.', 'Hornea 15 minutos a 180 °C.'],
+  'Galletas blandas y pequeñas.', 'Sin azúcar añadido.');
+r('pollo-limon-patatas', 'Pollo al limón con patatas', '🍋', 12, 45, '', 0,
+  ['pollo|2 muslos de pollo sin piel', 'patata|2 patatas', 'limón|Zumo de ½ limón', 'ajo|1 diente de ajo', 'aceite|1 cucharada de aceite de oliva'],
+  ['Pon el pollo y las patatas en una bandeja con el limón, el ajo y el aceite.', 'Hornea 35 minutos a 190 °C.', 'Desmenuza el pollo sin huesos.'],
+  'Pollo desmenuzado y patatas en trozos.', 'Revisa que no queden huesecillos.');
+r('pollo-champinones', 'Pollo con champiñones', '🍄', 12, 30, '', 0,
+  ['pollo|1 pechuga de pollo', 'champiñón|100 g de champiñones', 'cebolla|¼ de cebolla', 'aceite|1 cucharadita de aceite de oliva', 'agua|Un chorrito de agua'],
+  ['Sofríe la cebolla y los champiñones laminados.', 'Añade el pollo en tiras y el agua.', 'Cocina 15 minutos hasta que esté tierno.'],
+  'Tiras tiernas con la salsa.', '');
+r('ternera-verduras-horno', 'Ternera asada con verduras', '🥩', 12, 60, '', 1,
+  ['ternera|300 g de ternera tierna en trozos', 'zanahoria|1 zanahoria', 'patata|1 patata', 'pimiento|½ pimiento', 'cebolla|¼ de cebolla', 'aceite|1 cucharada de aceite de oliva'],
+  ['Pon todo en una bandeja con el aceite y un poco de agua.', 'Tapa con papel de aluminio y hornea 50 minutos a 170 °C.', 'Desmenuza la carne.'],
+  'Carne desmenuzada y verduras blandas.', 'Fuente de hierro.');
+r('merluza-salsa-verde', 'Merluza en salsa verde', '🐟', 12, 25, 'pescado', 0,
+  ['merluza|1 lomo de merluza sin espinas', 'patata|1 patata', 'guisantes|Un puñado de guisantes', 'perejil|Perejil', 'ajo|1 diente de ajo', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Cuece la patata en rodajas.', 'Añade la merluza, los guisantes y el perejil triturado con el ajo y un poco de agua.', 'Cocina 8 minutos.'],
+  'Lascas grandes de merluza y patata aplastada.', 'Revisa las espinas.');
+r('papillote-pescadilla', 'Pescadilla en papillote con verduras', '🐟', 12, 25, 'pescado', 0,
+  ['pescadilla|1 lomo de pescadilla sin espinas', 'calabacín|½ calabacín', 'zanahoria|½ zanahoria', 'limón|Unas gotas de limón', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Corta las verduras en tiras finas.', 'Envuélvelo todo en papel de horno.', 'Hornea 18 minutos a 180 °C.'],
+  'Lascas de pescado y verdura blanda.', 'Revisa las espinas.');
+r('bacalao-pisto', 'Bacalao fresco con pisto', '🍅', 12, 35, 'pescado', 0,
+  ['bacalao|1 lomo de bacalao fresco sin espinas', 'tomate|2 tomates', 'pimiento|½ pimiento', 'calabacín|½ calabacín', 'cebolla|¼ de cebolla', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Cocina el pisto 15 minutos hasta que esté blando.', 'Añade el bacalao y cocina 8 minutos.', 'Desmenúzalo con cuidado.'],
+  'Lascas con pisto aplastado.', 'Bacalao fresco o muy bien desalado: el salado lleva demasiada sal.');
+r('lentejas-verduras-hierro', 'Lentejas estofadas con verduras', '🍲', 12, 45, '', 1,
+  ['lentejas|½ taza de lentejas', 'zanahoria|1 zanahoria', 'patata|1 patata', 'pimiento|¼ de pimiento rojo', 'cebolla|¼ de cebolla', 'aceite|1 cucharadita de aceite de oliva', 'agua|Agua sin sal'],
+  ['Cuece todo en agua sin sal 35 minutos.', 'Aplasta ligeramente.'],
+  'Cuchara precargada o espeso para mojar.', 'Ofrécelo con algo con vitamina C (naranja, tomate) para absorber mejor el hierro.');
+r('garbanzos-espinacas', 'Garbanzos con espinacas', '🫘', 12, 40, '', 1,
+  ['garbanzos|1 taza de garbanzos cocidos', 'espinacas|Un puñado de espinacas', 'patata|1 patata', 'comino|Una pizca de comino', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Cuece la patata en trozos 12 minutos.', 'Añade garbanzos y espinacas 5 minutos.', 'Aplasta ligeramente con un tenedor.'],
+  'Garbanzos aplastados y verduras blandas.', 'Espinacas solo a partir de los 12 meses.');
+r('alubias-verduras', 'Alubias blancas con verduras', '🫘', 12, 45, '', 1,
+  ['alubias|1 taza de alubias cocidas', 'zanahoria|1 zanahoria', 'puerro|1 puerro', 'patata|1 patata', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Cuece las verduras 15 minutos.', 'Añade las alubias 10 minutos más.', 'Aplasta ligeramente.'],
+  'Alubias aplastadas, nunca enteras.', '');
+r('fajitas-pollo', 'Fajitas de pollo y pimiento', '🌯', 18, 30, 'gluten', 0,
+  ['tortilla de trigo|2 tortillas de trigo pequeñas', 'pollo|1 pechuga de pollo en tiras', 'pimiento|½ pimiento', 'cebolla|¼ de cebolla', 'aguacate|½ aguacate', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Saltea el pollo con el pimiento y la cebolla hasta que estén tiernos.', 'Calienta las tortillas.', 'Rellena con el pollo y el aguacate chafado y enrolla.'],
+  'Rollitos cortados en trozos.', '');
+r('tortilla-calabacin-queso', 'Tortilla de calabacín y queso', '🍳', 12, 20, 'huevo,leche', 0,
+  ['huevo|2 huevos', 'calabacín|½ calabacín rallado', 'queso fresco|2 cucharadas de queso fresco', 'aceite|Unas gotas de aceite'],
+  ['Mezcla huevos, calabacín y queso.', 'Cuaja en sartén antiadherente por ambos lados.'],
+  'Cuñas o tiras gruesas.', '');
+r('revuelto-champinones', 'Revuelto de champiñones', '🍄', 12, 15, 'huevo', 0,
+  ['huevo|2 huevos', 'champiñón|100 g de champiñones', 'ajo|½ diente de ajo', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Saltea los champiñones picados con el ajo.', 'Añade los huevos batidos y cuaja sin dejar nada líquido.'],
+  'Cuchara o sobre tostada.', 'Bien cuajado.');
+r('croquetas-espinacas', 'Croquetas de espinacas al horno', '🟢', 18, 60, 'gluten,leche', 0,
+  ['harina|3 cucharadas de harina', 'leche|300 ml de leche entera', 'espinacas|Un puñado de espinacas', 'cebolla|¼ de cebolla', 'aceite|2 cucharadas de aceite de oliva'],
+  ['Sofríe la cebolla, añade la harina y la leche poco a poco hasta tener una bechamel espesa.', 'Mezcla con las espinacas cocidas y picadas.', 'Deja enfriar, forma croquetas y hornea 20 minutos a 200 °C.'],
+  'Croquetas pequeñas y blandas.', 'Sin sal.');
+r('albondigas-tomate', 'Albóndigas de ternera en salsa de tomate', '🍅', 12, 40, 'huevo,gluten', 1,
+  ['ternera|200 g de ternera picada', 'huevo|1 huevo', 'avena|2 cucharadas de avena molida', 'tomate|2 tomates triturados', 'cebolla|¼ de cebolla'],
+  ['Mezcla la carne, el huevo y la avena y forma bolitas.', 'Cocina la cebolla y el tomate 10 minutos.', 'Añade las albóndigas y cocina 15 minutos.'],
+  'Albóndigas partidas por la mitad.', 'Fuente de hierro.');
+r('pastel-carne-verduras', 'Pastel de carne y verduras', '🥩', 18, 55, 'huevo,gluten', 1,
+  ['ternera|300 g de ternera picada', 'zanahoria|1 zanahoria rallada', 'huevo|1 huevo', 'avena|3 cucharadas de avena', 'cebolla|¼ de cebolla', 'tomate|2 cucharadas de tomate'],
+  ['Mezcla todos los ingredientes.', 'Pon la mezcla en un molde.', 'Hornea 40 minutos a 180 °C y corta en porciones.'],
+  'Porciones pequeñas y jugosas.', '');
+r('sopa-fideos-pollo', 'Sopa de fideos con pollo', '🍜', 12, 30, 'gluten', 0,
+  ['pasta|30 g de fideos finos', 'pollo|1 muslo de pollo sin piel', 'zanahoria|1 zanahoria', 'puerro|1 puerro', 'agua|Agua sin sal'],
+  ['Cuece el pollo con las verduras 25 minutos.', 'Quita el pollo, desmenúzalo y devuélvelo.', 'Añade los fideos 5 minutos.'],
+  'Sopa espesa con cuchara.', 'Sin sal ni cubitos de caldo.');
+r('crema-verduras-queso', 'Crema de calabacín y queso', '🥣', 12, 25, 'leche', 0,
+  ['calabacín|2 calabacines', 'patata|1 patata', 'queso fresco|2 cucharadas de queso fresco', 'cebolla|¼ de cebolla', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Cuece todas las verduras en poca agua.', 'Tritura con el queso.'],
+  'Espesa, en cuchara o para mojar.', '');
+r('salsa-yogur-pepino', 'Salsa de yogur y pepino', '🥒', 12, 5, 'leche', 0,
+  ['yogur|1 yogur natural sin azúcar', 'pepino|¼ de pepino pelado y rallado', 'limón|Unas gotas de limón', 'perejil|Perejil picado'],
+  ['Mezcla todo.', 'Sirve para mojar bastones de verdura cocida o de pollo.'],
+  'Para mojar o en cuchara.', 'Sin sal.');
+r('hamburguesa-pollo-manzana', 'Hamburguesas de pollo y manzana', '🍔', 12, 25, 'huevo,gluten', 0,
+  ['pollo|200 g de pollo picado', 'manzana|½ manzana rallada', 'huevo|1 huevo', 'avena|2 cucharadas de avena'],
+  ['Mezcla todo.', 'Forma hamburguesas pequeñas y cocínalas a la plancha 5 minutos por lado.'],
+  'Hamburguesa pequeña, jugosa y bien hecha.', '');
+r('bastones-calabacin-rebozado', 'Bastones de calabacín rebozados al horno', '🥒', 18, 30, 'huevo,gluten', 0,
+  ['calabacín|1 calabacín', 'huevo|1 huevo', 'pan rallado|3 cucharadas de pan rallado sin sal', 'aceite|Un chorrito de aceite'],
+  ['Corta el calabacín en bastones gruesos.', 'Pásalos por huevo y pan rallado.', 'Hornea 20 minutos a 200 °C.'],
+  'Bastones gruesos y blandos.', '');
+r('tortitas-garbanzo-espinacas', 'Tortitas de garbanzo y espinacas', '🟢', 12, 20, '', 1,
+  ['harina de garbanzo|4 cucharadas de harina de garbanzo', 'espinacas|Un puñado de espinacas picadas', 'agua|Agua', 'aceite|Unas gotas de aceite'],
+  ['Mezcla la harina con agua hasta tener una masa fluida.', 'Añade las espinacas.', 'Cocina cucharadas en sartén antiadherente 2 minutos por lado.'],
+  'Tortitas pequeñas o en tiras.', 'Espinacas solo a partir de los 12 meses.');
+r('ternera-guisantes', 'Ternera con guisantes y patata', '🥩', 12, 45, '', 1,
+  ['ternera|250 g de ternera en trozos pequeños', 'guisantes|Un puñado de guisantes', 'patata|1 patata', 'cebolla|¼ de cebolla', 'agua|Agua sin sal'],
+  ['Cuece la carne con la cebolla en agua 25 minutos.', 'Añade la patata y los guisantes 15 minutos.', 'Desmenuza la carne y aplasta los guisantes.'],
+  'Carne desmenuzada y verduras aplastadas.', 'Fuente de hierro.');
+r('salmon-arroz-brocoli', 'Salmón con arroz y brócoli', '🍣', 12, 30, 'pescado', 0,
+  ['salmón|1 lomo de salmón sin espinas', 'arroz|½ taza de arroz cocido', 'brócoli|Unos ramitos de brócoli', 'limón|Unas gotas de limón', 'aceite|1 cucharadita de aceite de oliva'],
+  ['Hornea el salmón 15 minutos a 180 °C.', 'Cuece el brócoli y pícalo.', 'Mezcla con el arroz y el salmón desmenuzado.'],
+  'Bolitas o cuchara.', 'Limita el arroz a pocas veces por semana (AESAN).');
+
+Object.assign(CAT, {
+  'yogur-cacahuete':'DT|lacteo','semola-pera':'D|masas','tortilla-espinacas':'CD|huevo','crema-espinacas-patata':'C|cremas','acelgas-patata':'C|verdura',
+  'macarrones-ternera':'C|masas','espaguetis-albondigas':'C|masas','paella-bebe':'C|masas','lasana-pollo-verduras':'C|masas','pizza-casera':'C|masas',
+  'empanadillas-verduras':'CT|masas','sandwich-pavo-queso':'DC|masas','crepes-platano':'D|masas','arroz-con-leche':'DT|lacteo','gachas-avena-leche':'D|masas',
+  'batido-platano-leche':'DT|lacteo','galletas-yogur-avena':'DT|masas','pollo-limon-patatas':'C|carne','pollo-champinones':'C|carne','ternera-verduras-horno':'C|carne',
+  'merluza-salsa-verde':'C|pescado','papillote-pescadilla':'C|pescado','bacalao-pisto':'C|pescado','lentejas-verduras-hierro':'C|legumbre','garbanzos-espinacas':'C|legumbre',
+  'alubias-verduras':'C|legumbre','fajitas-pollo':'C|carne','tortilla-calabacin-queso':'CD|huevo','revuelto-champinones':'DC|huevo','croquetas-espinacas':'CT|masas',
+  'albondigas-tomate':'C|carne','pastel-carne-verduras':'C|carne','sopa-fideos-pollo':'C|cremas','crema-verduras-queso':'C|cremas','salsa-yogur-pepino':'T|cremas',
+  'hamburguesa-pollo-manzana':'C|carne','bastones-calabacin-rebozado':'CT|verdura','tortitas-garbanzo-espinacas':'CT|legumbre','ternera-guisantes':'C|carne','salmon-arroz-brocoli':'C|pescado'
+});

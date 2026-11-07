@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>¿Qué cocinamos hoy? · Recetas para bebés · Mi Bebé Guía</title>
+<title>¿Qué cocinamos hoy? · Recetas y diario de alimentos para bebés · Mi Bebé Guía</title>
 <meta name="description" content="Escribe los ingredientes que tienes en casa y descubre qué recetas puede comer tu bebé desde los 6 meses, con alérgenos y cómo ofrecerlas.">
 <meta name="theme-color" content="#e8833a">
 <link rel="manifest" href="manifest.webmanifest">
@@ -68,6 +68,22 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 footer{margin:28px 0 12px;color:var(--muted);font-size:.85rem}
 footer a{color:var(--accent)}
+.tabs{display:flex;gap:8px;margin:6px 0 10px}
+.tab{flex:1;padding:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-weight:600;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.muted{color:var(--muted)}
+.bar{height:10px;border-radius:99px;background:var(--soft);overflow:hidden;margin:8px 0 4px}
+.bar span{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.fg{margin:20px 0 4px;font-weight:700}
+.frow{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;padding:12px 14px;margin:6px 0;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+.frow.hecho{border-color:var(--ok)}
+.frow .st{font-size:.85rem;color:var(--muted);white-space:nowrap}
+.tag.ok{background:var(--ok-bg);color:var(--ok);font-weight:600}
+.dlg label.l{display:block;font-weight:600;margin:14px 0 4px}
+textarea.search{resize:vertical}
+#v-diario h2.dt{font-size:1.25rem;margin:8px 0 2px}
+details.bk{background:var(--card);border-color:var(--line)}
+details.bk summary{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -77,6 +93,12 @@ footer a{color:var(--accent)}
     <p>Escribe lo que tienes en casa y te mostramos qué puede comer tu bebé. Sin sal, sin azúcar y sin miel.</p>
   </header>
 
+  <nav class="tabs" aria-label="Secciones">
+    <button class="tab" id="tab-recetas" aria-selected="true">🍳 Recetas</button>
+    <button class="tab" id="tab-diario" aria-selected="false">📒 Diario</button>
+  </nav>
+
+  <div id="v-recetas">
   <details class="seg">
     <summary>Antes de empezar: seguridad</summary>
     <ul>
@@ -112,6 +134,32 @@ footer a{color:var(--accent)}
   <div class="count" id="count" aria-live="polite"></div>
   <div class="grid" id="lista"></div>
 
+  </div>
+
+  <div id="v-diario" hidden>
+    <h2 class="dt">Diario de alimentos 📒</h2>
+    <p class="muted" style="margin:0 0 8px">Apunta cada alimento que prueba tu bebé: la fecha y cómo le sentó. Se guarda solo en este móvil.</p>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="barra-wrap"><span id="barra"></span></div>
+    <div id="progtxt" class="muted"></div>
+
+    <div class="group">Alérgenos</div>
+    <div class="chips" id="alerg-res"></div>
+    <p class="muted" style="font-size:.85rem;margin:6px 0 0">Introduce los alérgenos de uno en uno, en poca cantidad y sin otros alimentos nuevos ese día, según la pauta de tu pediatra.</p>
+
+    <input id="dq" class="search" style="margin-top:16px" type="search" placeholder="Busca un alimento…" autocomplete="off" aria-label="Buscar alimento">
+    <div class="chips" id="dfil" style="margin-top:10px"></div>
+    <div id="dlista"></div>
+
+    <details class="seg bk" style="margin-top:24px">
+      <summary>Copia de seguridad</summary>
+      <p>Si cambias de móvil o reinstalas la app, el diario se borra. Copia aquí tus datos y guárdalos en una nota. Para recuperarlos, pega el texto abajo y pulsa Restaurar.</p>
+      <div class="row"><button class="btn" id="bk-copiar">Copiar mi copia</button></div>
+      <textarea id="bk-txt" class="search" rows="3" style="margin-top:10px" placeholder="Pega aquí la copia para restaurarla" aria-label="Texto de la copia de seguridad"></textarea>
+      <div class="row"><button class="btn" id="bk-restaurar">Restaurar</button></div>
+      <p id="bk-msg" class="muted" aria-live="polite"></p>
+    </details>
+  </div>
+
   <footer>
     <p>Información orientativa. No sustituye el consejo de tu pediatra. Consulta también las pautas de la Asociación Española de Pediatría (AEP) y de la AESAN.</p>
     <p>Mi Bebé Guía · <a href="https://mibebeguia.es">mibebeguia.es</a></p>
@@ -123,11 +171,11 @@ footer a{color:var(--accent)}
 <script src="recetas.js"></script>
 <script>
 const ALERG = {huevo:'Huevo', gluten:'Gluten', leche:'Leche', pescado:'Pescado', frutos:'Frutos secos', soja:'Soja'};
-const EDADES = [[0,'Todas'],[6,'6 meses'],[8,'8 meses'],[10,'10 meses'],[12,'12+ meses']];
+const EDADES = [[0,'Todas'],[6,'6 meses'],[8,'8 meses'],[10,'10 meses'],[12,'12 meses'],[18,'18+ meses']];
 // Ingredientes que casi todo el mundo tiene: no cuentan para saber si "te falta" algo.
 const MOMENTOS = [['','Todos'],['D','Desayuno o merienda'],['C','Comida o cena'],['T','Tentempié']];
 const TIPOS = [['','Todos'],['verdura','Verduras'],['carne','Carne'],['pescado','Pescado'],['huevo','Huevo'],['legumbre','Legumbres'],['lacteo','Lácteos'],['fruta','Fruta'],['masas','Cereales y masas'],['cremas','Cremas y purés']];
-const STAPLES = new Set(['aceite','agua','perejil','eneldo','comino','canela','levadura']);
+const STAPLES = new Set(['aceite','agua','perejil','eneldo','comino','canela','levadura','ajo']);
 
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
@@ -244,6 +292,7 @@ function abrir(id){
       const pref = hay && !STAPLES.has(i.k) ? (state.sel.has(i.k) ? '✓ ' : '✗ ') : '';
       return `<li${marca}>${pref}${i.t}</li>`;
     }).join('')}</ul>
+    ${nuevosHTML(rc)}
     <h3>Preparación</h3><ol>${rc.pasos.map(p => `<li>${p}</li>`).join('')}</ol>
     <div class="box"><b>Cómo ofrecerlo:</b> ${rc.corte}</div>
     ${rc.nota ? `<div class="box">${rc.nota}</div>` : ''}
@@ -284,6 +333,144 @@ $('q').addEventListener('keydown', e => {
   if (k) { state.sel.add(k); $('q').value = ''; pintarTodo(); }
 });
 $('dlg').addEventListener('click', e => { if (e.target === $('dlg')) $('dlg').close(); });
+
+// ================= DIARIO DE ALIMENTOS =================
+const ALG_D = {huevo:'Huevo', leche:'Leche', gluten:'Gluten', pescado:'Pescado', frutos:'Frutos secos', cacahuete:'Cacahuete', soja:'Soja', sesamo:'Sésamo', marisco:'Marisco'};
+const REACC = {ok:['✅','Sin reacción'], no:['😕','No le gustó'], leve:['⚠️','Reacción leve'], grave:['🚨','Reacción importante']};
+// Cada alimento: 'nombre|alérgeno|nota'
+const GRUPOS = [
+  ['Frutas', ['plátano','manzana||Al empezar, cocida o rallada','pera','aguacate','melocotón','albaricoque','ciruela||Sin hueso','mango','melón','sandía||Sin pepitas','kiwi','fresa','arándanos||Aplastados','naranja','mandarina','piña','papaya','cereza||Sin hueso y en cuartos']],
+  ['Verduras', ['calabacín','zanahoria||Siempre cocida','calabaza','boniato','patata','brócoli','coliflor','judías verdes','guisantes||Aplastados','berenjena','pimiento','tomate','cebolla','puerro','champiñón','espárrago','pepino','alcachofa','remolacha||A partir de los 12 meses (nitratos)','espinacas||A partir de los 12 meses (nitratos)','acelgas||A partir de los 12 meses (nitratos)']],
+  ['Cereales', ['arroz||Limita el arroz (AESAN)','avena|gluten','pasta|gluten','pan|gluten|Mejor sin sal','cuscús|gluten','sémola de trigo|gluten','quinoa||Lávala antes de cocerla','polenta']],
+  ['Carne', ['pollo','pavo','ternera','cerdo','cordero','conejo']],
+  ['Pescado', ['merluza|pescado','bacalao fresco|pescado','lenguado|pescado','pescadilla|pescado','lubina|pescado','dorada|pescado','salmón|pescado','sardina|pescado|Sin espinas','trucha|pescado|Sin espinas']],
+  ['Marisco', ['gambas|marisco|Bien cocidas y en trocitos','mejillones|marisco|Bien cocidos y en trocitos']],
+  ['Huevo y lácteos', ['huevo|huevo|Siempre bien cocinado','yogur natural|leche|Sin azúcar','queso fresco|leche|Pasteurizado y bajo en sal','queso mozzarella|leche|Pasteurizado','leche entera|leche|Como bebida, a partir de los 12 meses']],
+  ['Legumbres', ['lentejas','garbanzos','alubias blancas','tofu|soja']],
+  ['Frutos secos y semillas', ['almendra molida|frutos|Siempre molida o en crema fina','nuez molida|frutos|Siempre molida o en crema fina','avellana molida|frutos|Siempre molida o en crema fina','cacahuete en crema fina|cacahuete|Crema 100 % cacahuete, sin sal ni azúcar, en capa muy fina','sésamo (tahini)|sesamo|En crema fina','chía||Hidratada','lino||Molido']],
+  ['Hierbas y especias', ['perejil','albahaca','orégano','canela','comino','cúrcuma','tomillo','pimentón dulce']],
+  ['Otros', ['aceite de oliva','ajo','limón']]
+];
+const fid = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const FOODS = [];
+GRUPOS.forEach(([g, items]) => items.forEach(s => { const p = s.split('|'); FOODS.push({id: fid(p[0]), n: p[0], g: g, a: p[1] || '', nota: p[2] || ''}); }));
+
+let diario = {};
+try { diario = JSON.parse(localStorage.getItem('blw_diario') || '{}') || {}; } catch (e) { diario = {}; }
+const guardarDiario = () => { try { localStorage.setItem('blw_diario', JSON.stringify(diario)); } catch (e) {} };
+const dstate = {q: '', fil: 'todos'};
+const hoy = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const fechaCorta = iso => iso ? iso.split('-').reverse().slice(0, 2).join('/') : '';
+
+function pintarDiario(){
+  const total = FOODS.length, hechos = FOODS.filter(f => diario[f.id]).length;
+  $('barra').style.width = Math.round(hechos / total * 100) + '%';
+  $('barra-wrap').setAttribute('aria-valuenow', Math.round(hechos / total * 100));
+  $('progtxt').textContent = 'Tu bebé ha probado ' + hechos + ' de ' + total + ' alimentos.';
+  $('alerg-res').innerHTML = Object.entries(ALG_D).map(([k, t]) => {
+    const fs = FOODS.filter(f => f.a === k);
+    const hecho = fs.some(f => diario[f.id]);
+    const aviso = fs.some(f => diario[f.id] && diario[f.id].r === 'grave');
+    return `<span class="tag ${aviso ? 'alg' : (hecho ? 'ok' : '')}">${aviso ? '🚨 ' : (hecho ? '✓ ' : '')}${t}</span>`;
+  }).join('');
+  const fils = [['todos', 'Todos'], ['probados', 'Probados'], ['pendientes', 'Por probar'], ['alergenos', 'Con alérgenos']];
+  $('dfil').innerHTML = fils.map(([v, t]) => `<button class="chip" data-dfil="${v}" aria-pressed="${dstate.fil === v}">${t}</button>`).join('');
+  const q = norm(dstate.q.trim());
+  const lista = FOODS.filter(f =>
+    (!q || norm(f.n).includes(q)) &&
+    (dstate.fil === 'todos' || (dstate.fil === 'probados' && diario[f.id]) || (dstate.fil === 'pendientes' && !diario[f.id]) || (dstate.fil === 'alergenos' && f.a)));
+  let html = '', ultimo = '';
+  lista.forEach(f => {
+    if (f.g !== ultimo) { html += `<div class="fg">${f.g}</div>`; ultimo = f.g; }
+    const d = diario[f.id];
+    html += `<button class="frow ${d ? 'hecho' : ''}" data-food="${f.id}">
+      <span>${cap(f.n)}${f.a ? ` <span class="tag alg">${ALG_D[f.a]}</span>` : ''}</span>
+      <span class="st">${d ? '✓ ' + fechaCorta(d.f) + ' ' + REACC[d.r][0] : '＋'}</span></button>`;
+  });
+  $('dlista').innerHTML = html || '<div class="empty">No hay alimentos con esos filtros.</div>';
+}
+
+function abrirAlimento(id){
+  const f = FOODS.find(x => x.id === id); if (!f) return;
+  const d = diario[id];
+  let rx = d ? d.r : 'ok';
+  $('dlgc').innerHTML = `
+    <div class="meta" style="margin-bottom:4px"><span class="tag">${f.g}</span>${f.a ? `<span class="tag alg">Alérgeno: ${ALG_D[f.a].toLowerCase()}</span>` : ''}</div>
+    <h2>${cap(f.n)}</h2>
+    ${f.nota ? `<div class="box">${f.nota}</div>` : ''}
+    ${f.a ? '<div class="box">Alérgeno: ofrécelo en poca cantidad, a primera hora y sin otros alimentos nuevos ese día. Sigue la pauta de tu pediatra.</div>' : ''}
+    <label class="l" for="fd-fecha">Fecha en que lo probó</label>
+    <input id="fd-fecha" class="search" type="date">
+    <label class="l">¿Cómo le sentó?</label>
+    <div class="chips" id="fd-rx"></div>
+    <div class="box warn" id="fd-aviso" hidden>Si aparece hinchazón de labios o cara, dificultad para respirar, vómitos repetidos o ronchas por todo el cuerpo, llama al 112 o ve a urgencias. Antes de repetir este alimento, consúltalo con tu pediatra.</div>
+    <label class="l" for="fd-nota">Nota (opcional)</label>
+    <textarea id="fd-nota" class="search" rows="3" maxlength="300" placeholder="Textura, cantidad, si repitió…"></textarea>
+    <div class="row"><button class="btn primary" id="fd-guardar">Guardar</button><button class="btn" id="fd-cerrar">Cerrar</button></div>
+    ${d ? '<div class="row"><button class="btn" id="fd-quitar">Quitar del diario</button></div>' : ''}`;
+  $('fd-fecha').value = d ? d.f : hoy();
+  $('fd-nota').value = d ? (d.n || '') : '';
+  const pintarRx = () => {
+    $('fd-rx').innerHTML = Object.entries(REACC).map(([k, v]) => `<button class="chip" data-rx="${k}" aria-pressed="${rx === k}">${v[0]} ${v[1]}</button>`).join('');
+    $('fd-aviso').hidden = rx !== 'grave';
+  };
+  pintarRx();
+  $('fd-rx').onclick = e => { const b = e.target.closest('[data-rx]'); if (!b) return; rx = b.dataset.rx; pintarRx(); };
+  $('fd-guardar').onclick = () => { diario[id] = {f: $('fd-fecha').value || hoy(), r: rx, n: $('fd-nota').value.trim()}; guardarDiario(); $('dlg').close(); pintarDiario(); };
+  $('fd-cerrar').onclick = () => $('dlg').close();
+  if (d) $('fd-quitar').onclick = () => { delete diario[id]; guardarDiario(); $('dlg').close(); pintarDiario(); };
+  if (!$('dlg').open) $('dlg').showModal();
+}
+
+// Alimentos de una receta que el bebé aún no ha probado (solo si ya usa el diario)
+const ALIAS = {'arándano':'arandanos', 'queso fresco':'queso-fresco', 'queso mozzarella':'queso-mozzarella', 'yogur':'yogur-natural', 'bacalao':'bacalao-fresco', 'alubias':'alubias-blancas', 'harina de garbanzo':'garbanzos', 'sémola':'semola-de-trigo', 'cacahuete':'cacahuete-en-crema-fina', 'almendra':'almendra-molida', 'leche':'leche-entera'};
+function nuevosHTML(rc){
+  if (!Object.keys(diario).length) return '';
+  const nuevos = [];
+  rc.ing.forEach(i => {
+    if (STAPLES.has(i.k)) return;
+    const id = ALIAS[i.k] || fid(i.k);
+    const f = FOODS.find(x => x.id === id);
+    if (f && !diario[id] && !nuevos.includes(f.n)) nuevos.push(f.n);
+  });
+  return nuevos.length ? `<div class="box">🆕 Alimentos que tu bebé aún no ha probado: <b>${nuevos.join(', ')}</b></div>` : '';
+}
+
+function mostrar(v){
+  $('v-recetas').hidden = v !== 'recetas';
+  $('v-diario').hidden = v !== 'diario';
+  $('tab-recetas').setAttribute('aria-selected', v === 'recetas');
+  $('tab-diario').setAttribute('aria-selected', v === 'diario');
+  if (v === 'diario') pintarDiario();
+  window.scrollTo(0, 0);
+}
+$('tab-recetas').onclick = () => mostrar('recetas');
+$('tab-diario').onclick = () => mostrar('diario');
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-food],[data-dfil]'); if (!t) return;
+  if (t.dataset.food) abrirAlimento(t.dataset.food);
+  else { dstate.fil = t.dataset.dfil; pintarDiario(); }
+});
+$('dq').addEventListener('input', e => { dstate.q = e.target.value; pintarDiario(); });
+
+const bkMsg = t => { $('bk-msg').textContent = t; };
+$('bk-copiar').onclick = async () => {
+  const txt = JSON.stringify({blw: 1, diario: diario, favs: [...favs]});
+  try { await navigator.clipboard.writeText(txt); bkMsg('Copia hecha. Pégala en una nota para guardarla.'); }
+  catch (e) { $('bk-txt').value = txt; $('bk-txt').select(); bkMsg('Copia el texto de la caja de abajo y guárdalo en una nota.'); }
+};
+$('bk-restaurar').onclick = () => {
+  try {
+    const d = JSON.parse($('bk-txt').value.trim());
+    if (!d || d.blw !== 1) throw new Error('formato');
+    Object.entries(d.diario || {}).forEach(([k, v]) => {
+      if (FOODS.some(f => f.id === k) && v && REACC[v.r]) diario[k] = {f: String(v.f || '').slice(0, 10), r: v.r, n: String(v.n || '').slice(0, 300)};
+    });
+    (d.favs || []).forEach(x => { if (R.some(rc => rc.id === x)) favs.add(x); });
+    guardarDiario(); saveFavs(); pintarDiario(); pintarLista();
+    bkMsg('Copia restaurada.');
+  } catch (e) { bkMsg('El texto no es una copia válida.'); }
+};
 
 pintarTodo();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {

@@ -5,6 +5,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   apk:
     runs-on: ubuntu-latest
@@ -49,16 +52,34 @@ jobs:
           done
           printf '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="ic_launcher_background">#E8833A</color>\n</resources>\n' > $RES/values/ic_launcher_background.xml
 
+      - name: Poner el número de versión
+        run: |
+          sed -i "s/versionCode 1/versionCode ${{ github.run_number }}/" android/app/build.gradle
+          grep -n "versionCode" android/app/build.gradle
+
       - name: Compilar APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
 
-      - name: Guardar APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk recetas-blw.apk
+      - name: Firmar APK
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > clave.jks
+          BT=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -1)
+          $BT/zipalign -p -f 4 android/app/build/outputs/apk/release/app-release-unsigned.apk alineado.apk
+          $BT/apksigner sign --ks clave.jks --ks-key-alias "$KEY_ALIAS" --ks-pass env:KEYSTORE_PASSWORD --key-pass env:KEY_PASSWORD --out recetas-blw.apk alineado.apk
+          $BT/apksigner verify recetas-blw.apk
+          rm -f clave.jks
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: recetas-blw-apk
-          path: recetas-blw.apk
+      - name: Publicar en Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view ultima >/dev/null 2>&1 || gh release create ultima --title "Última versión" --notes "APK de Recetas BLW para Android"
+          gh release upload ultima recetas-blw.apk --clobber
